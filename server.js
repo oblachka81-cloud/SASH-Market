@@ -2,22 +2,42 @@ require('dotenv').config();
 const { Telegraf } = require('telegraf');
 const express = require('express');
 const { initDB, getUserLang, setUserLang } = require('./database');
+const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 3000;
-
 const BOT_TOKEN = process.env.BOT_TOKEN || '';
 
-// Локализация
+// Загрузка локализации
 const LOCALES = {
-  ru: { welcome: '🌟 *Добро пожаловать в SASH Market!*\n\nГлобальная торговая экосистема.\nВыберите язык:', lang_set: '✅ Язык: Русский', main_menu: '🏠 *Главное меню*' },
-  en: { welcome: '🌟 *Welcome to SASH Market!*\n\nGlobal trading ecosystem.\nChoose language:', lang_set: '✅ Language: English', main_menu: '🏠 *Main Menu*' },
-  es: { welcome: '🌟 *¡Bienvenido a SASH Market!*\n\nEcosistema comercial global.\nElija idioma:', lang_set: '✅ Idioma: Español', main_menu: '🏠 *Menú Principal*' },
-  fr: { welcome: '🌟 *Bienvenue sur SASH Market!*\n\nÉcosystème commercial mondial.\nChoisissez la langue:', lang_set: '✅ Langue: Français', main_menu: '🏠 *Menu Principal*' }
+  ru: require('./locales/ru.json'),
+  en: require('./locales/en.json'),
+  es: require('./locales/es.json'),
+  fr: require('./locales/fr.json')
 };
+
+function t(userId, key, vars = {}) {
+  const lang = LOCALES[getUserLang] ? 'ru' : 'ru'; // заглушка, обновим ниже
+  let text = LOCALES[lang]?.[key] || key;
+  for (const [k, v] of Object.entries(vars)) {
+    text = text.replace(`{${k}}`, v);
+  }
+  return text;
+}
 
 if (BOT_TOKEN) {
   const bot = new Telegraf(BOT_TOKEN);
+
+  // Middleware для языка
+  bot.use(async (ctx, next) => {
+    const userId = ctx.from?.id;
+    if (userId) {
+      ctx.userLang = await getUserLang(userId);
+    } else {
+      ctx.userLang = 'ru';
+    }
+    return next();
+  });
 
   bot.start(async (ctx) => {
     const userId = ctx.from.id;
@@ -56,7 +76,7 @@ if (BOT_TOKEN) {
 }
 
 // Express сервер
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
   res.send('SASH Market API is running');
