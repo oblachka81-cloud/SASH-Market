@@ -1,0 +1,16 @@
+{
+  "name": "sash-market",
+  "version": "1.0.0",
+  "description": "SASH Market - Global Trading Ecosystem",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "telegraf": "^4.15.0",
+    "express": "^4.18.2",
+    "pg": "^8.11.0",
+    "dotenv": "^16.3.1",
+    "puppeteer": "^21.0.0"
+  }
+}
