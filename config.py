@@ -3,11 +3,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Токен бота из переменных окружения
+# Токен бота
 BOT_TOKEN = os.getenv("BOT_TOKEN", "ВСТАВЬ_СВОЙ_ТОКЕН_СЮДА")
 
 # ID админа (Саша)
-ADMIN_ID = 5116812153  # Замени на Telegram ID Саши, когда узнаешь
+ADMIN_ID = 5116812153  # Пока ты, потом заменим на Сашу
 
 # Поддерживаемые языки
 LANGUAGES = {
@@ -18,9 +18,9 @@ LANGUAGES = {
 }
 
 # Настройки площадки
-PLACEMENT_FEE = 100  # Цена размещения объявления (руб/мес)
-MAX_LISTINGS_PER_USER = 3  # Максимум объявлений от одного продавца
-LISTING_DURATION_DAYS = 30  # Длительность объявления
+PLACEMENT_FEE = 100
+MAX_LISTINGS_PER_USER = 3
+LISTING_DURATION_DAYS = 30
 
-# Настройки БД
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:password@localhost:5432/sash_db")
+# База данных (твоя строка подключения)
+DATABASE_URL = "postgresql://bothost_db_1e7a3eabefbd:fuV_53wVHgUs2gES6mCA0Dh37yJInzTkuaW6bDe_BXk@node1.pghost.ru:15792/bothost_db_1e7a3eabefbd"
