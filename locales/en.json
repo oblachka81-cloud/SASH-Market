@@ -1,0 +1,14 @@
+{
+  "welcome": "🌟 *Welcome to SASH Market!*\n\nGlobal trading ecosystem.\nChoose language:",
+  "lang_set": "✅ Language: English",
+  "main_menu": "🏠 *Main Menu*\n\nWhat do you want to do?",
+  "buy": "🛒 Buy",
+  "sell": "📢 Sell",
+  "logistics": "🚚 Logistics",
+  "profile": "👤 Profile",
+  "support": "ℹ️ Support",
+  "open_app": "🚀 Open SASH Market",
+  "in_dev": "🚧 Section in development",
+  "profile_info": "👤 *Profile*\n\nID: `{user_id}`\nLanguage: {lang}",
+  "support_info": "ℹ️ *SASH Support*\n\nFor any questions: @brotherly_heart1"
+}
