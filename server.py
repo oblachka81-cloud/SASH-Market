@@ -5,12 +5,16 @@ from database import init_db, get_user_lang, set_user_lang
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
-# Главные тексты на 4 языках
+# Ссылка на Mini App
+MINI_APP_URL = "https://oblachka81-cloud.github.io/SASH-Market/mini_app/index.html"
+
+# Тексты на 4 языках
 TEXTS = {
     "ru": {
         "welcome": "🌟 *Добро пожаловать в SASH Market!*\n\nГлобальная торговая экосистема.\nВыберите язык:",
         "lang_set": "✅ Язык: Русский",
-        "main_menu": "🏠 *Главное меню*\n\nЧто хотите сделать?",
+        "main_menu": "🏠 *Главное меню*",
+        "open_app": "🚀 Открыть SASH Market",
         "buy": "🛒 Купить",
         "sell": "📢 Продать",
         "logistics": "🚚 Логистика",
@@ -23,7 +27,8 @@ TEXTS = {
     "en": {
         "welcome": "🌟 *Welcome to SASH Market!*\n\nGlobal trading ecosystem.\nChoose language:",
         "lang_set": "✅ Language: English",
-        "main_menu": "🏠 *Main Menu*\n\nWhat do you want to do?",
+        "main_menu": "🏠 *Main Menu*",
+        "open_app": "🚀 Open SASH Market",
         "buy": "🛒 Buy",
         "sell": "📢 Sell",
         "logistics": "🚚 Logistics",
@@ -36,7 +41,8 @@ TEXTS = {
     "es": {
         "welcome": "🌟 *¡Bienvenido a SASH Market!*\n\nEcosistema comercial global.\nElija idioma:",
         "lang_set": "✅ Idioma: Español",
-        "main_menu": "🏠 *Menú Principal*\n\n¿Qué desea hacer?",
+        "main_menu": "🏠 *Menú Principal*",
+        "open_app": "🚀 Abrir SASH Market",
         "buy": "🛒 Comprar",
         "sell": "📢 Vender",
         "logistics": "🚚 Logística",
@@ -49,7 +55,8 @@ TEXTS = {
     "fr": {
         "welcome": "🌟 *Bienvenue sur SASH Market!*\n\nÉcosystème commercial mondial.\nChoisissez la langue:",
         "lang_set": "✅ Langue: Français",
-        "main_menu": "🏠 *Menu Principal*\n\nQue voulez-vous faire?",
+        "main_menu": "🏠 *Menu Principal*",
+        "open_app": "🚀 Ouvrir SASH Market",
         "buy": "🛒 Acheter",
         "sell": "📢 Vendre",
         "logistics": "🚚 Logistique",
@@ -62,7 +69,6 @@ TEXTS = {
 }
 
 def get_text(user_id, key, **kwargs):
-    """Получить текст на языке пользователя"""
     lang = get_user_lang(user_id)
     text = TEXTS.get(lang, TEXTS["ru"]).get(key, key)
     return text.format(**kwargs) if kwargs else text
@@ -96,8 +102,16 @@ def set_language(call):
     show_main_menu(user_id, call.message.chat.id)
 
 def show_main_menu(user_id, chat_id):
-    """Показать главное меню"""
-    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+    """Показать главное меню с кнопкой Mini App"""
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+    
+    # Кнопка открытия Mini App
+    keyboard.add(types.KeyboardButton(
+        get_text(user_id, "open_app"),
+        web_app=types.WebAppInfo(url=MINI_APP_URL)
+    ))
+    
+    # Остальные кнопки
     keyboard.add(
         get_text(user_id, "buy"),
         get_text(user_id, "sell")
@@ -129,5 +143,5 @@ def handle_menu(message):
 
 # Запуск
 init_db()
-print("🚀 SASH Market запущен с БД!")
+print("🚀 SASH Market запущен с Mini App!")
 bot.polling(none_stop=True)
