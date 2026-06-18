@@ -1,0 +1,113 @@
+:root {
+    --bg: #0f0f1a;
+    --card: #1a1a2e;
+    --accent: #e94560;
+    --accent2: #0f3460;
+    --text: #eee;
+    --sub: #aaa;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding-bottom: 70px;
+}
+
+/* Хедер */
+.header {
+    background: linear-gradient(135deg, #e94560, #c23152);
+    padding: 16px;
+    text-align: center;
+}
+.header h1 { font-size: 1.3em; margin-bottom: 10px; }
+
+.lang-switcher { display: flex; justify-content: center; gap: 8px; }
+.lang-btn {
+    width: 38px; height: 38px; border-radius: 50%;
+    border: 2px solid transparent; background: rgba(255,255,255,0.2);
+    font-size: 1.1em; cursor: pointer; transition: 0.2s;
+}
+.lang-btn.active { border-color: #fff; background: rgba(255,255,255,0.4); }
+
+/* Табы */
+.tabs {
+    display: flex; background: var(--card);
+    position: sticky; top: 0; z-index: 10;
+}
+.tab {
+    flex: 1; padding: 12px; text-align: center;
+    font-weight: 600; font-size: 0.85em; color: var(--sub);
+    border: none; background: none; cursor: pointer;
+    border-bottom: 3px solid transparent; transition: 0.2s;
+}
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* Контент */
+.content { padding: 10px; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Поиск */
+.search-bar { margin-bottom: 12px; }
+.search-bar input {
+    width: 100%; padding: 12px; border-radius: 10px;
+    border: 1px solid #333; background: var(--card);
+    color: var(--text); font-size: 0.95em;
+}
+
+/* Сетка товаров */
+.product-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.product-card {
+    background: var(--card); border-radius: 12px;
+    overflow: hidden; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.product-card:active { transform: scale(0.97); }
+.product-card img {
+    width: 100%; height: 130px; object-fit: cover; background: #2a2a4a;
+}
+.product-card .info { padding: 10px; }
+.product-card .name {
+    font-weight: 600; font-size: 0.85em;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.product-card .price { color: var(--accent); font-weight: 700; margin-top: 5px; }
+
+/* Форма */
+.sell-form label {
+    display: block; font-size: 0.85em; color: var(--sub);
+    margin-bottom: 4px; margin-top: 12px;
+}
+.sell-form input, .sell-form textarea {
+    width: 100%; padding: 12px; border-radius: 8px;
+    border: 1px solid #333; background: var(--card);
+    color: var(--text); font-size: 0.95em;
+}
+.submit-btn {
+    width: 100%; padding: 14px; margin-top: 15px;
+    background: var(--accent); color: #fff; border: none;
+    border-radius: 10px; font-size: 1em; font-weight: 600; cursor: pointer;
+}
+
+/* Пустое состояние */
+.empty-state {
+    grid-column: 1 / -1; text-align: center;
+    padding: 40px 20px; color: var(--sub);
+}
+
+/* Навбар */
+.navbar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--card); display: flex;
+    justify-content: space-around; padding: 8px 0;
+    border-top: 1px solid #333; z-index: 10;
+}
+.nav-btn {
+    font-size: 1.4em; background: none; border: none;
+    color: var(--sub); cursor: pointer; padding: 8px 16px;
+}
+.nav-btn.active { color: var(--accent); }
