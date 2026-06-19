@@ -1,14 +1,53 @@
 {
-  "welcome": "🌟 *Добро пожаловать в SASH Market!*\n\nГлобальная торговая экосистема.\nВыберите язык:",
-  "lang_set": "✅ Язык: Русский",
-  "main_menu": "🏠 *Главное меню*\n\nЧто хотите сделать?",
-  "buy": "🛒 Купить",
-  "sell": "📢 Продать",
-  "logistics": "🚚 Логистика",
-  "profile": "👤 Профиль",
-  "support": "ℹ️ Поддержка",
-  "open_app": "🚀 Открыть SASH Market",
-  "in_dev": "🚧 Раздел в разработке",
-  "profile_info": "👤 *Профиль*\n\nID: `{user_id}`\nЯзык: {lang}",
-  "support_info": "ℹ️ *Поддержка SASH*\n\nПо всем вопросам: @brotherly_heart1"
+  "btnEnter": "🚀 Войти в SASH",
+  "menuTitle": {
+    "buy": "Купить",
+    "sell": "Продать",
+    "logistics": "Логистика",
+    "profile": "Профиль",
+    "club": "SASH Club",
+    "pro": "Pro / VIP"
+  },
+  "menuDesc": {
+    "buy": "Каталог товаров",
+    "sell": "Разместить объявление",
+    "logistics": "Отслеживание",
+    "profile": "Мои объявления",
+    "club": "Реферальная программа",
+    "pro": "Премиум подписки"
+  },
+  "pageTitle": {
+    "buy": "Каталог",
+    "sell": "Продать",
+    "logistics": "Логистика",
+    "profile": "Профиль",
+    "club": "SASH Club",
+    "pro": "Pro / VIP"
+  },
+  "text": {
+    "buy": "🛒 Товары скоро появятся",
+    "logistics": "🚚 Отслеживание скоро будет доступно",
+    "club": "🏆 SASH Club скоро запустится",
+    "pro": "💎 Pro/VIP подписки скоро будут доступны"
+  },
+  "lblName": "Название",
+  "lblPrice": "Цена (руб)",
+  "lblDesc": "Описание",
+  "btnPublish": "📢 Опубликовать",
+  "success": "✅ Товар опубликован!",
+  "error": "❌ Ошибка",
+  "profile": {
+    "memberSince": "На платформе с",
+    "listings": "Мои объявления",
+    "orders": "Мои заказы",
+    "favorites": "Избранное",
+    "messages": "Мои сообщения",
+    "settings": "Настройки",
+    "language": "Язык",
+    "notifications": "Уведомления",
+    "about": "О SASH Market",
+    "rating": "Рейтинг",
+    "sold": "Продано",
+    "bought": "Куплено"
+  }
 }
