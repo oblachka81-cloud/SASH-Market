@@ -179,6 +179,23 @@ function updateUI() {
   if (lblPrice) lblPrice.textContent = loc.lblPrice;
   if (lblDesc) lblDesc.textContent = loc.lblDesc;
   if (btnPublish) btnPublish.textContent = loc.btnPublish;
+  // Профиль
+const locProfile = loc.profile;
+if (locProfile) {
+  document.getElementById('lblRating').textContent = locProfile.rating;
+  document.getElementById('lblSold').textContent = locProfile.sold;
+  document.getElementById('lblBought').textContent = locProfile.bought;
+  document.getElementById('lblListings').textContent = '📢 ' + locProfile.listings;
+  document.getElementById('lblOrders').textContent = '🚚 ' + locProfile.orders;
+  document.getElementById('lblFavorites').textContent = '❤️ ' + locProfile.favorites;
+  document.getElementById('lblMessages').textContent = '💬 ' + locProfile.messages;
+  document.getElementById('lblSettings').textContent = '⚙️ ' + locProfile.settings;
+  document.getElementById('lblLanguage').textContent = '🌐 ' + locProfile.language;
+  document.getElementById('lblNotifications').textContent = '🔔 ' + locProfile.notifications;
+  document.getElementById('lblAbout').textContent = 'ℹ️ ' + locProfile.about;
+  document.getElementById('profileSince').textContent = locProfile.memberSince + ': —';
+  document.getElementById('profileLang').textContent = {ru:'Русский',en:'English',es:'Español',fr:'Français'}[currentLang];
+}
 }
 
 // Выбор языка
