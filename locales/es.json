@@ -1,14 +1,53 @@
 {
-  "welcome": "🌟 *¡Bienvenido a SASH Market!*\n\nEcosistema comercial global.\nElija idioma:",
-  "lang_set": "✅ Idioma: Español",
-  "main_menu": "🏠 *Menú Principal*\n\n¿Qué desea hacer?",
-  "buy": "🛒 Comprar",
-  "sell": "📢 Vender",
-  "logistics": "🚚 Logística",
-  "profile": "👤 Perfil",
-  "support": "ℹ️ Soporte",
-  "open_app": "🚀 Abrir SASH Market",
-  "in_dev": "🚧 Sección en desarrollo",
-  "profile_info": "👤 *Perfil*\n\nID: `{user_id}`\nIdioma: {lang}",
-  "support_info": "ℹ️ *Soporte SASH*\n\nPara cualquier pregunta: @brotherly_heart1"
+  "btnEnter": "🚀 Entrar a SASH",
+  "menuTitle": {
+    "buy": "Comprar",
+    "sell": "Vender",
+    "logistics": "Logística",
+    "profile": "Perfil",
+    "club": "SASH Club",
+    "pro": "Pro / VIP"
+  },
+  "menuDesc": {
+    "buy": "Catálogo de productos",
+    "sell": "Publicar anuncio",
+    "logistics": "Seguimiento",
+    "profile": "Mis anuncios",
+    "club": "Programa de referidos",
+    "pro": "Suscripciones premium"
+  },
+  "pageTitle": {
+    "buy": "Catálogo",
+    "sell": "Vender",
+    "logistics": "Logística",
+    "profile": "Perfil",
+    "club": "SASH Club",
+    "pro": "Pro / VIP"
+  },
+  "text": {
+    "buy": "🛒 Productos próximamente",
+    "logistics": "🚚 Seguimiento próximamente",
+    "club": "🏆 SASH Club próximamente",
+    "pro": "💎 Suscripciones Pro/VIP próximamente"
+  },
+  "lblName": "Nombre",
+  "lblPrice": "Precio (rub)",
+  "lblDesc": "Descripción",
+  "btnPublish": "📢 Publicar",
+  "success": "✅ ¡Producto publicado!",
+  "error": "❌ Error",
+  "profile": {
+    "memberSince": "Miembro desde",
+    "listings": "Mis anuncios",
+    "orders": "Mis pedidos",
+    "favorites": "Favoritos",
+    "messages": "Mis mensajes",
+    "settings": "Configuración",
+    "language": "Idioma",
+    "notifications": "Notificaciones",
+    "about": "Acerca de SASH Market",
+    "rating": "Calificación",
+    "sold": "Vendido",
+    "bought": "Comprado"
+  }
 }
