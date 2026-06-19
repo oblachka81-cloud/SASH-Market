@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { Telegraf } = require('telegraf');
 const express = require('express');
-const { initDB, getUserLang, setUserLang } = require('./database');
+const { initDB, getUserLang, setUserLang, pool } = require('./database');
 const path = require('path');
 
 const app = express();
