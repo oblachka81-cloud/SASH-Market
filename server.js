@@ -65,10 +65,14 @@ bot.action(/lang_(.+)/, async (ctx) => {
   const lang = ctx.match[1];
   const userId = ctx.from.id;
   const username = ctx.from.username;
+  
+  // Отвечаем СРАЗУ, не ждём
+  await ctx.answerCbQuery(LOCALES[lang].lang_set);
+  
+  // Потом обновляем базу и показываем меню
   await setUserLang(userId, username, lang);
   ctx.userLang = lang;
   
-  await ctx.answerCbQuery(LOCALES[lang].lang_set);
   showMainMenu(ctx);
 });
 
