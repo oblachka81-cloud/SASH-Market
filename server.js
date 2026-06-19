@@ -36,6 +36,64 @@ bot.start(async (ctx) => {
 // Express
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+// Раздача файлов локализации
+app.use('/locales', express.static(path.join(__dirname, 'locales')));
+
+// API: Профиль пользователя
+app.get('/api/profile', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT 
+        (SELECT COUNT(*) FROM products WHERE status = 'active') as listings_count,
+        (SELECT COUNT(*) FROM products WHERE status = 'sold') as sold,
+        0 as bought,
+        0 as orders_count,
+        0 as rating
+    `);
+    res.json({
+      first_name: 'Пользователь',
+      username: 'sash_user',
+      registered_at: new Date().toISOString(),
+      ...result.rows[0]
+    });
+  } catch (err) {
+    console.error('Ошибка профиля:', err);
+    res.status(500).json({ error: 'Ошибка сервера' });
+  }
+});
+
+// API: Получить товары
+app.get('/api/products', async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT id, name, price, description, photo_id, category FROM products WHERE status = 'active' ORDER BY created_at DESC"
+    );
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Ошибка получения товаров:', err);
+    res.status(500).json({ error: 'Ошибка сервера' });
+  }
+});
+
+// API: Добавить товар
+app.post('/api/products', async (req, res) => {
+  try {
+    const { name, price, description, photo_id, category } = req.body;
+    if (!name || !price) {
+      return res.status(400).json({ error: 'Название и цена обязательны' });
+    }
+    const result = await pool.query(
+      `INSERT INTO products (seller_id, name, price, description, photo_id, category) 
+       VALUES ($1, $2, $3, $4, $5, $6) 
+       RETURNING id, name, price`,
+      [0, name, price, description || '', photo_id || '', category || '']
+    );
+    res.status(201).json({ success: true, product: result.rows[0] });
+  } catch (err) {
+    console.error('Ошибка добавления товара:', err);
+    res.status(500).json({ error: 'Ошибка сервера' });
+  }
+});
 
 app.post('/webhook', async (req, res) => {
   try {
