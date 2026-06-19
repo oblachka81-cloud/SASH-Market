@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const BOT_TOKEN = process.env.BOT_TOKEN || '';
 const DOMAIN = process.env.DOMAIN || '';
-const MINI_APP_URL = 'https://oblachka81-cloud.github.io/SASH-Market/mini_app/';
+const MINI_APP_URL = 'https://oblachka81-cloud.github.io/SASH-Market/public/index.html';
 
 const bot = new Telegraf(BOT_TOKEN);
 
