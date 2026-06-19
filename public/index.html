@@ -5,29 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>SASH Market</title>
 <style>
-:root{--bg:#0f0f1a;--card:#1a1a2e;--accent:#e94560;--text:#eee;--sub:#aaa}
+:root{--bg:#0f0f1a;--card:#1a1a2e;--accent:#e94560;--text:#eee;--sub:#aaa;--gold:#d4af37}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);padding-bottom:70px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text)}
 #splash{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s}
 #splash.hidden{opacity:0;pointer-events:none}
 #splash img{max-width:80%;max-height:50vh;object-fit:contain}
 .splash-btns{margin-top:30px;display:flex;flex-direction:column;align-items:center;gap:12px}
-.splash-btn{padding:14px 40px;border-radius:30px;border:none;font-size:1.1em;font-weight:600;cursor:pointer;transition:transform .2s}
-.splash-btn:hover{transform:scale(1.05)}
-.splash-btn.primary{background:linear-gradient(135deg,#e94560,#c23152);color:#fff;box-shadow:0 4px 20px rgba(233,69,96,.4)}
-.splash-langs{display:flex;gap:10px;margin-top:8px}
-.splash-lang{width:44px;height:44px;border-radius:50%;border:2px solid transparent;background:rgba(255,255,255,.1);font-size:1.2em;cursor:pointer;transition:all .2s}
+.splash-btn{padding:14px 40px;border-radius:30px;border:none;font-size:1.1em;font-weight:600;cursor:pointer;background:linear-gradient(135deg,#e94560,#c23152);color:#fff;box-shadow:0 4px 20px rgba(233,69,96,.4)}
+.splash-langs{display:flex;gap:10px}
+.splash-lang{width:44px;height:44px;border-radius:50%;border:2px solid transparent;background:rgba(255,255,255,.1);font-size:1.2em;cursor:pointer}
 .splash-lang.active{border-color:var(--accent);background:rgba(233,69,96,.2)}
 .header{background:linear-gradient(135deg,#e94560,#c23152);padding:16px;text-align:center}
-.header h1{font-size:1.3em;margin-bottom:8px}
-.tabs{display:flex;background:var(--card);position:sticky;top:0;z-index:10}
-.tab{flex:1;padding:12px 8px;text-align:center;font-weight:600;font-size:.8em;color:var(--sub);border:none;background:none;cursor:pointer;border-bottom:3px solid transparent}
-.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.header h1{font-size:1.3em}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px}
+.menu-card{background:var(--card);border-radius:16px;padding:20px;text-align:center;cursor:pointer;transition:all .2s;border:1px solid transparent}
+.menu-card:hover{transform:translateY(-4px);box-shadow:0 8px 25px rgba(0,0,0,.3)}
+.menu-card.premium{border-color:var(--gold);background:linear-gradient(135deg,var(--card),#2a2a1e)}
+.menu-icon{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.8em;background:rgba(233,69,96,.2)}
+.menu-card.premium .menu-icon{background:rgba(212,175,55,.2)}
+.menu-title{font-weight:600;font-size:.9em;margin-bottom:4px}
+.menu-desc{font-size:.75em;color:var(--sub)}
 .content{padding:12px}
-.tab-content{display:none}
-.tab-content.active{display:block}
+.page{display:none}
+.page.active{display:block}
 .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.product-card{background:var(--card);border-radius:12px;overflow:hidden;cursor:pointer}
+.product-card{background:var(--card);border-radius:12px;overflow:hidden}
 .product-card img{width:100%;height:130px;object-fit:cover;background:#2a2a4a}
 .product-card .info{padding:10px}
 .product-card .name{font-weight:600;font-size:.85em}
@@ -36,17 +39,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .form-group label{display:block;font-size:.8em;color:var(--sub);margin-bottom:4px}
 .form-group input,.form-group textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #333;background:var(--card);color:var(--text);font-size:.9em}
 .submit-btn{width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:1em;font-weight:600;cursor:pointer}
-.empty-state{grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--sub)}
-.navbar{position:fixed;bottom:0;left:0;right:0;background:var(--card);display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid #333}
-.nav-btn{font-size:1.4em;background:none;border:none;color:var(--sub);cursor:pointer;padding:8px 16px}
-.nav-btn.active{color:var(--accent)}
+.empty-state{text-align:center;padding:40px 20px;color:var(--sub)}
+.back-btn{background:none;border:none;color:var(--text);font-size:1.2em;cursor:pointer;padding:8px}
+.page-title{text-align:center;padding:16px;font-size:1.1em;font-weight:600}
 </style>
 </head>
 <body>
 <div id="splash">
 <img src="images/splash.png" alt="SASH Market">
 <div class="splash-btns">
-<button class="splash-btn primary" id="btnEnter">🚀 Войти в SASH</button>
+<button class="splash-btn" id="btnEnter">🚀 Войти в SASH</button>
 <div class="splash-langs">
 <button class="splash-lang active" data-lang="ru">🇷🇺</button>
 <button class="splash-lang" data-lang="en">🇬🇧</button>
@@ -56,45 +58,44 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 </div>
 </div>
 
+<div id="main-menu" style="display:none">
 <div class="header"><h1>🛍 SASH Market</h1></div>
-
-<div class="tabs">
-<button class="tab active" data-tab="buy">🛒 Купить</button>
-<button class="tab" data-tab="sell">📢 Продать</button>
-<button class="tab" data-tab="logistics">🚚 Логистика</button>
+<div class="menu-grid">
+<div class="menu-card" data-page="buy"><div class="menu-icon">🛒</div><div class="menu-title">Купить</div><div class="menu-desc">Каталог товаров</div></div>
+<div class="menu-card" data-page="sell"><div class="menu-icon">📢</div><div class="menu-title">Продать</div><div class="menu-desc">Разместить объявление</div></div>
+<div class="menu-card" data-page="logistics"><div class="menu-icon">🚚</div><div class="menu-title">Логистика</div><div class="menu-desc">Отслеживание</div></div>
+<div class="menu-card" data-page="profile"><div class="menu-icon">👤</div><div class="menu-title">Профиль</div><div class="menu-desc">Мои объявления</div></div>
+<div class="menu-card" data-page="club"><div class="menu-icon">🏆</div><div class="menu-title">SASH Club</div><div class="menu-desc">Реферальная программа</div></div>
+<div class="menu-card premium" data-page="pro"><div class="menu-icon">💎</div><div class="menu-title">Pro / VIP</div><div class="menu-desc">Премиум подписки</div></div>
+</div>
 </div>
 
+<div id="pages" style="display:none">
+<div class="header" style="display:flex;align-items:center;padding:8px 16px">
+<button class="back-btn" id="btnBack">←</button>
+<div class="page-title" id="pageTitle">Раздел</div>
+</div>
 <div class="content">
-<div class="tab-content active" id="tab-buy">
-<div class="product-grid" id="productGrid">
-<div class="empty-state" id="emptyBuy">🛒 Товары скоро появятся</div>
+<div class="page active" id="page-buy"><div class="product-grid"><div class="empty-state">🛒 Товары скоро появятся</div></div></div>
+<div class="page" id="page-sell">
+<div class="form-group"><label>Название</label><input type="text" id="itemName"></div>
+<div class="form-group"><label>Цена (руб)</label><input type="number" id="itemPrice"></div>
+<div class="form-group"><label>Описание</label><textarea id="itemDesc" rows="2"></textarea></div>
+<button class="submit-btn">📢 Опубликовать</button>
 </div>
+<div class="page" id="page-logistics"><div class="empty-state">🚚 Отслеживание скоро будет доступно</div></div>
+<div class="page" id="page-profile"><div class="empty-state">👤 Профиль в разработке</div></div>
+<div class="page" id="page-club"><div class="empty-state">🏆 SASH Club скоро запустится</div></div>
+<div class="page" id="page-pro"><div class="empty-state">💎 Pro/VIP подписки скоро будут доступны</div></div>
 </div>
-<div class="tab-content" id="tab-sell">
-<div class="form-group"><label id="lblName">Название</label><input type="text" id="itemName"></div>
-<div class="form-group"><label id="lblPrice">Цена (руб)</label><input type="number" id="itemPrice"></div>
-<div class="form-group"><label id="lblDesc">Описание</label><textarea id="itemDesc" rows="2"></textarea></div>
-<button class="submit-btn" id="btnPublish">📢 Опубликовать</button>
-</div>
-<div class="tab-content" id="tab-logistics">
-<div class="empty-state" id="emptyLog">🚚 Отслеживание скоро будет доступно</div>
-</div>
-</div>
-
-<div class="navbar">
-<button class="nav-btn active" data-tab="buy">🏠</button>
-<button class="nav-btn" data-tab="sell">➕</button>
-<button class="nav-btn" data-tab="logistics">📦</button>
 </div>
 
 <script>
-const LOCALES={ru:{buy:'🛒 Купить',sell:'📢 Продать',logistics:'🚚 Логистика',emptyBuy:'🛒 Товары скоро появятся',emptyLog:'🚚 Отслеживание скоро будет доступно',lblName:'Название',lblPrice:'Цена (руб)',lblDesc:'Описание',btnPublish:'📢 Опубликовать',btnEnter:'🚀 Войти в SASH'},en:{buy:'🛒 Buy',sell:'📢 Sell',logistics:'🚚 Logistics',emptyBuy:'🛒 Products coming soon',emptyLog:'🚚 Tracking coming soon',lblName:'Name',lblPrice:'Price (rub)',lblDesc:'Description',btnPublish:'📢 Publish',btnEnter:'🚀 Enter SASH'},es:{buy:'🛒 Comprar',sell:'📢 Vender',logistics:'🚚 Logística',emptyBuy:'🛒 Productos próximamente',emptyLog:'🚚 Seguimiento próximamente',lblName:'Nombre',lblPrice:'Precio (rub)',lblDesc:'Descripción',btnPublish:'📢 Publicar',btnEnter:'🚀 Entrar a SASH'},fr:{buy:'🛒 Acheter',sell:'📢 Vendre',logistics:'🚚 Logistique',emptyBuy:'🛒 Produits à venir',emptyLog:'🚚 Suivi à venir',lblName:'Nom',lblPrice:'Prix (rub)',lblDesc:'Description',btnPublish:'📢 Publier',btnEnter:'🚀 Entrer SASH'}};
-let currentLang=localStorage.getItem('sash-lang')||'ru';
-function updateUI(){const loc=LOCALES[currentLang];document.querySelector('.tab[data-tab="buy"]').textContent=loc.buy;document.querySelector('.tab[data-tab="sell"]').textContent=loc.sell;document.querySelector('.tab[data-tab="logistics"]').textContent=loc.logistics;document.getElementById('emptyBuy').textContent=loc.emptyBuy;document.getElementById('emptyLog').textContent=loc.emptyLog;document.getElementById('lblName').textContent=loc.lblName;document.getElementById('lblPrice').textContent=loc.lblPrice;document.getElementById('lblDesc').textContent=loc.lblDesc;document.getElementById('btnPublish').textContent=loc.btnPublish;document.getElementById('btnEnter').textContent=loc.btnEnter}
-document.querySelectorAll('.splash-lang').forEach(btn=>{btn.addEventListener('click',()=>{currentLang=btn.dataset.lang;localStorage.setItem('sash-lang',currentLang);document.querySelectorAll('.splash-lang').forEach(b=>b.classList.remove('active'));btn.classList.add('active');updateUI()})});
-document.getElementById('btnEnter').addEventListener('click',()=>{document.getElementById('splash').classList.add('hidden')});
-document.querySelectorAll('.tab,.nav-btn').forEach(el=>{el.addEventListener('click',()=>{const tab=el.dataset.tab;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.nav-btn').forEach(n=>n.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));document.querySelector(`.tab[data-tab="${tab}"]`).classList.add('active');document.querySelector(`.nav-btn[data-tab="${tab}"]`).classList.add('active');document.getElementById(`tab-${tab}`).classList.add('active')})});
-updateUI();
+let currentLang='ru';
+document.querySelectorAll('.splash-lang').forEach(btn=>{btn.addEventListener('click',()=>{currentLang=btn.dataset.lang;document.querySelectorAll('.splash-lang').forEach(b=>b.classList.remove('active'));btn.classList.add('active')})});
+document.getElementById('btnEnter').addEventListener('click',()=>{document.getElementById('splash').classList.add('hidden');setTimeout(()=>{document.getElementById('splash').style.display='none';document.getElementById('main-menu').style.display='block'},600)});
+document.querySelectorAll('.menu-card').forEach(card=>{card.addEventListener('click',()=>{const page=card.dataset.page;document.getElementById('main-menu').style.display='none';document.getElementById('pages').style.display='block';document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+page).classList.add('active');document.getElementById('pageTitle').textContent=card.querySelector('.menu-title').textContent})});
+document.getElementById('btnBack').addEventListener('click',()=>{document.getElementById('pages').style.display='none';document.getElementById('main-menu').style.display='block'});
 </script>
 </body>
 </html>
