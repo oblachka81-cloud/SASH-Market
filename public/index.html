@@ -215,6 +215,7 @@ document.getElementById('btnEnter').addEventListener('click', () => {
   setTimeout(() => {
     document.getElementById('splash').style.display = 'none';
     document.getElementById('main-menu').style.display = 'block';
+    loadProfile();
   }, 600);
 });
 
@@ -238,6 +239,24 @@ document.getElementById('btnBack').addEventListener('click', () => {
 
 // Первичная установка языка
 updateUI();
+  async function loadProfile() {
+  try {
+    const res = await fetch(API_URL + '/api/profile');
+    const data = await res.json();
+    if (data) {
+      document.getElementById('profileName').textContent = data.first_name || 'Пользователь';
+      document.getElementById('profileUsername').textContent = '@' + (data.username || 'user');
+      document.getElementById('profileRating').textContent = data.rating || '—';
+      document.getElementById('profileSold').textContent = data.sold || 0;
+      document.getElementById('profileBought').textContent = data.bought || 0;
+      document.getElementById('profileListingsCount').textContent = data.listings_count || 0;
+      document.getElementById('profileOrdersCount').textContent = data.orders_count || 0;
+      document.getElementById('profileSince').textContent = (LOCALES[currentLang].profile?.memberSince || 'На платформе с') + ': ' + (data.registered_at ? new Date(data.registered_at).toLocaleDateString() : '—');
+    }
+  } catch (e) {
+    console.error('Ошибка загрузки профиля:', e);
+  }
+}
 </script>
 </body>
 </html>
