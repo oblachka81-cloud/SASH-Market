@@ -241,11 +241,31 @@ document.getElementById('btnBack').addEventListener('click', () => {
 updateUI();
   async function loadProfile() {
   try {
+    // Пробуем взять данные из Telegram
+    if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
+      const user = window.Telegram.WebApp.initDataUnsafe.user;
+      
+      // Имя
+      document.getElementById('profileName').textContent = user.first_name || 'Пользователь';
+      
+      // Юзернейм
+      document.getElementById('profileUsername').textContent = user.username ? '@' + user.username : '';
+      
+      // Аватарка (если есть фото)
+      if (user.photo_url) {
+        document.querySelector('#page-profile div[style*="width:80px"]').innerHTML = 
+          `<img src="${user.photo_url}" style="width:80px;height:80px;border-radius:50%;object-fit:cover">`;
+      }
+    } else {
+      // Fallback: нет Telegram API (браузер)
+      document.getElementById('profileName').textContent = 'Пользователь';
+      document.getElementById('profileUsername').textContent = '';
+    }
+
+    // Остальные данные из API
     const res = await fetch(API_URL + '/api/profile');
     const data = await res.json();
     if (data) {
-      document.getElementById('profileName').textContent = data.first_name || 'Пользователь';
-      document.getElementById('profileUsername').textContent = '@' + (data.username || 'user');
       document.getElementById('profileRating').textContent = data.rating || '—';
       document.getElementById('profileSold').textContent = data.sold || 0;
       document.getElementById('profileBought').textContent = data.bought || 0;
