@@ -241,25 +241,34 @@ document.getElementById('btnBack').addEventListener('click', () => {
 updateUI();
   async function loadProfile() {
   try {
-    // Пробуем взять данные из Telegram
-    if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
+    // Пробуем взять данные из Telegram WebApp
+    if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe) {
       const user = window.Telegram.WebApp.initDataUnsafe.user;
       
-      // Имя
-      document.getElementById('profileName').textContent = user.first_name || 'Пользователь';
-      
-      // Юзернейм
-      document.getElementById('profileUsername').textContent = user.username ? '@' + user.username : '';
-      
-      // Аватарка (если есть фото)
-      if (user.photo_url) {
-        document.querySelector('#page-profile div[style*="width:80px"]').innerHTML = 
-          `<img src="${user.photo_url}" style="width:80px;height:80px;border-radius:50%;object-fit:cover">`;
+      if (user) {
+        // Имя и фамилия
+        const fullName = [user.first_name, user.last_name].filter(Boolean).join(' ');
+        document.getElementById('profileName').textContent = fullName || 'Пользователь';
+        
+        // Юзернейм
+        document.getElementById('profileUsername').textContent = user.username ? '@' + user.username : '';
+        
+        // Загружаем аватарку через наше API
+        if (user.id) {
+          try {
+            const photoRes = await fetch(API_URL + '/api/user-photo/' + user.id);
+            const photoData = await photoRes.json();
+            if (photoData.photo_url) {
+              const avatarContainer = document.querySelector('#page-profile div[style*="width:80px"]');
+              if (avatarContainer) {
+                avatarContainer.innerHTML = `<img src="${photoData.photo_url}" style="width:80px;height:80px;border-radius:50%;object-fit:cover">`;
+              }
+            }
+          } catch (e) {
+            console.error('Ошибка загрузки аватарки:', e);
+          }
+        }
       }
-    } else {
-      // Fallback: нет Telegram API (браузер)
-      document.getElementById('profileName').textContent = 'Пользователь';
-      document.getElementById('profileUsername').textContent = '';
     }
 
     // Остальные данные из API
