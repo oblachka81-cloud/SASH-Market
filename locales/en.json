@@ -1,14 +1,53 @@
 {
-  "welcome": "🌟 *Welcome to SASH Market!*\n\nGlobal trading ecosystem.\nChoose language:",
-  "lang_set": "✅ Language: English",
-  "main_menu": "🏠 *Main Menu*\n\nWhat do you want to do?",
-  "buy": "🛒 Buy",
-  "sell": "📢 Sell",
-  "logistics": "🚚 Logistics",
-  "profile": "👤 Profile",
-  "support": "ℹ️ Support",
-  "open_app": "🚀 Open SASH Market",
-  "in_dev": "🚧 Section in development",
-  "profile_info": "👤 *Profile*\n\nID: `{user_id}`\nLanguage: {lang}",
-  "support_info": "ℹ️ *SASH Support*\n\nFor any questions: @brotherly_heart1"
+  "btnEnter": "🚀 Enter SASH",
+  "menuTitle": {
+    "buy": "Buy",
+    "sell": "Sell",
+    "logistics": "Logistics",
+    "profile": "Profile",
+    "club": "SASH Club",
+    "pro": "Pro / VIP"
+  },
+  "menuDesc": {
+    "buy": "Product catalog",
+    "sell": "Place an ad",
+    "logistics": "Tracking",
+    "profile": "My listings",
+    "club": "Referral program",
+    "pro": "Premium subscriptions"
+  },
+  "pageTitle": {
+    "buy": "Catalog",
+    "sell": "Sell",
+    "logistics": "Logistics",
+    "profile": "Profile",
+    "club": "SASH Club",
+    "pro": "Pro / VIP"
+  },
+  "text": {
+    "buy": "🛒 Products coming soon",
+    "logistics": "🚚 Tracking coming soon",
+    "club": "🏆 SASH Club coming soon",
+    "pro": "💎 Pro/VIP subscriptions coming soon"
+  },
+  "lblName": "Name",
+  "lblPrice": "Price (rub)",
+  "lblDesc": "Description",
+  "btnPublish": "📢 Publish",
+  "success": "✅ Product published!",
+  "error": "❌ Error",
+  "profile": {
+    "memberSince": "Member since",
+    "listings": "My listings",
+    "orders": "My orders",
+    "favorites": "Favorites",
+    "messages": "My messages",
+    "settings": "Settings",
+    "language": "Language",
+    "notifications": "Notifications",
+    "about": "About SASH Market",
+    "rating": "Rating",
+    "sold": "Sold",
+    "bought": "Bought"
+  }
 }
