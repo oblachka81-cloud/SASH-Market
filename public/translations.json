@@ -1,0 +1,92 @@
+{
+  "ru": {
+    "splash": {
+      "title": "SASH NEXUS",
+      "subtitle": "Экосистема"
+    },
+    "header": {
+      "title": "SASH NEXUS"
+    },
+    "tabs": {
+      "marketplace": "Маркет",
+      "marketplaceDesc": "Товары из Китая",
+      "logistics": "Логистика",
+      "logisticsDesc": "Трекинг грузов",
+      "crypto": "Крипта",
+      "cryptoDesc": "Обмен и кошелёк",
+      "tourism": "Туризм",
+      "tourismDesc": "Туры и путешествия",
+      "wallet": "Кошелёк",
+      "walletDesc": "Баланс и транзакции",
+      "profile": "Профиль",
+      "profileDesc": "Настройки и информация"
+    },
+    "placeholder": {
+      "developing": "Раздел в разработке"
+    },
+    "footer": {
+      "text": "SASH NEXUS © 2026",
+      "subtext": "Все права защищены"
+    }
+  },
+  "en": {
+    "splash": {
+      "title": "SASH NEXUS",
+      "subtitle": "Ecosystem"
+    },
+    "header": {
+      "title": "SASH NEXUS"
+    },
+    "tabs": {
+      "marketplace": "Market",
+      "marketplaceDesc": "Goods from China",
+      "logistics": "Logistics",
+      "logisticsDesc": "Cargo tracking",
+      "crypto": "Crypto",
+      "cryptoDesc": "Exchange & wallet",
+      "tourism": "Tourism",
+      "tourismDesc": "Tours & travels",
+      "wallet": "Wallet",
+      "walletDesc": "Balance & transactions",
+      "profile": "Profile",
+      "profileDesc": "Settings & info"
+    },
+    "placeholder": {
+      "developing": "Section in development"
+    },
+    "footer": {
+      "text": "SASH NEXUS © 2026",
+      "subtext": "All rights reserved"
+    }
+  },
+  "zh": {
+    "splash": {
+      "title": "SASH NEXUS",
+      "subtitle": "生态系统"
+    },
+    "header": {
+      "title": "SASH NEXUS"
+    },
+    "tabs": {
+      "marketplace": "市场",
+      "marketplaceDesc": "来自中国的商品",
+      "logistics": "物流",
+      "logisticsDesc": "货物追踪",
+      "crypto": "加密货币",
+      "cryptoDesc": "兑换与钱包",
+      "tourism": "旅游",
+      "tourismDesc": "旅游与旅行",
+      "wallet": "钱包",
+      "walletDesc": "余额与交易",
+      "profile": "个人资料",
+      "profileDesc": "设置与信息"
+    },
+    "placeholder": {
+      "developing": "部分正在开发中"
+    },
+    "footer": {
+      "text": "SASH NEXUS © 2026",
+      "subtext": "版权所有"
+    }
+  }
+}
