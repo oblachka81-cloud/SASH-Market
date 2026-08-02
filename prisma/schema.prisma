@@ -1,7 +1,7 @@
-// prisma/schema.prisma
-
 generator client {
   provider = "prisma-client-js"
+  // Явно указываем использовать OpenSSL 3.0, который есть в Debian Slim
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -9,7 +9,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// 1. ПОЛЬЗОВАТЕЛИ (Единый профиль для всей экосистемы)
 model User {
   id        Int      @id @default(autoincrement())
   telegramId BigInt   @unique
@@ -23,7 +22,6 @@ model User {
   bookings  Booking[]
 }
 
-// 2. КОШЕЛЕК (Единый баланс: фиат + крипта + бонусы)
 model Wallet {
   id          Int      @id @default(autoincrement())
   userId      Int      @unique
@@ -34,21 +32,19 @@ model Wallet {
   updatedAt   DateTime @updatedAt
 }
 
-// 3. ТОВАРЫ (Китай, электроника, услуги)
 model Product {
   id          Int      @id @default(autoincrement())
   name        String
   description String?
   priceUsd    Float
-  category    String   // "china_electronics", "china_clothing", "tourism_service"
+  category    String
   imageUrl    String?
-  supplierUrl String?  // Ссылка на 1688/Taobao для будущего парсинга
+  supplierUrl String?
   createdAt   DateTime @default(now())
 
   orders      Order[]
 }
 
-// 4. ЗАКАЗЫ И ЛОГИСТИКА (Объединены для простоты и скорости MVP)
 model Order {
   id                Int      @id @default(autoincrement())
   userId            Int
@@ -56,24 +52,23 @@ model Order {
   productId         Int
   product           Product  @relation(fields: [productId], references: [id])
   
-  status            String   @default("PENDING") // PENDING, PAID, PROCESSING, SHIPPED, DELIVERED
-  trackingNumber    String?  // Трек-номер для логистики
-  logisticsStatus   String?  // "На складе в Китае", "На таможне", "В пути", "Доставлен"
+  status            String   @default("PENDING")
+  trackingNumber    String?
+  logisticsStatus   String?
   
   totalAmountUsd    Float
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 }
 
-// 5. ТУРИЗМ (Бронирования туров, отелей, гидов)
 model Booking {
   id             Int      @id @default(autoincrement())
   userId         Int
   user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  title          String   // Название тура или услуги
+  title          String
   description    String?
-  date           DateTime // Дата начала
-  status         String   @default("PENDING") // PENDING, CONFIRMED, CANCELLED, COMPLETED
+  date           DateTime
+  status         String   @default("PENDING")
   totalAmountUsd Float
   createdAt      DateTime @default(now())
 }
