@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SASH Nexus</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+
+    <!-- SPLASH SCREEN -->
+    <div id="splash" class="splash-screen">
+        <div class="splash-logo-container">
+            <div class="splash-logo">SN</div>
+            <div class="splash-glow"></div>
+        </div>
+        <div class="splash-title" data-i18n="splash.title">SASH NEXUS</div>
+        <div class="splash-subtitle" data-i18n="splash.subtitle">Ecosystem</div>
+        <div class="splash-loader">
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+    <!-- MAIN APP -->
+    <div id="main-app" class="main-app hidden">
+        
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="header-left">
+                <!-- Переключатель языка -->
+                <div class="lang-switcher" id="langSwitcher">
+                    <span class="lang-current" id="langCurrent">🇷🇺 RU</span>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <div class="lang-option" data-lang="ru">🇷🇺 Русский</div>
+                        <div class="lang-option" data-lang="en">🇬🇧 English</div>
+                        <div class="lang-option" data-lang="zh">🇨🇳 中文</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="header-center">
+                <div class="logo-icon">SN</div>
+                <div class="logo-text" data-i18n="header.title">SASH NEXUS</div>
+            </div>
+            
+            <div class="header-right"></div>
+        </header>
+
+        <!-- КНОПКИ-ПЕРЕКЛЮЧАТЕЛИ SPA -->
+        <nav class="tab-switcher">
+            <div class="tab-row">
+                <button class="tab-btn active" data-tab="marketplace">
+                    <span class="tab-icon">🛍️</span>
+                    <span class="tab-label" data-i18n="tabs.marketplace">Маркет</span>
+                </button>
+                <button class="tab-btn" data-tab="logistics">
+                    <span class="tab-icon">📦</span>
+                    <span class="tab-label" data-i18n="tabs.logistics">Логистика</span>
+                </button>
+                <button class="tab-btn" data-tab="crypto">
+                    <span class="tab-icon">💎</span>
+                    <span class="tab-label" data-i18n="tabs.crypto">Крипта</span>
+                </button>
+            </div>
+            <div class="tab-row">
+                <button class="tab-btn" data-tab="tourism">
+                    <span class="tab-icon">✈️</span>
+                    <span class="tab-label" data-i18n="tabs.tourism">Туризм</span>
+                </button>
+                <button class="tab-btn" data-tab="wallet">
+                    <span class="tab-icon">💰</span>
+                    <span class="tab-label" data-i18n="tabs.wallet">Кошелёк</span>
+                </button>
+                <button class="tab-btn" data-tab="profile">
+                    <span class="tab-icon">👤</span>
+                    <span class="tab-label" data-i18n="tabs.profile">Профиль</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- ВКЛАДКИ (SPA) -->
+        <div class="tabs-container">
+            
+            <!-- МАРКЕТПЛЕЙС -->
+            <div id="tab-marketplace" class="tab-content active">
+                <div class="tab-header">
+                    <h2 data-i18n="tabs.marketplace">SASH Маркетплейс</h2>
+                    <p class="tab-desc" data-i18n="tabs.marketplaceDesc">Товары из Китая</p>
+                </div>
+                <div class="tab-body">
+                    <div class="placeholder-card">
+                        <span class="placeholder-icon">🛍️</span>
+                        <p data-i18n="placeholder.developing">Раздел в разработке</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ЛОГИСТИКА -->
+            <div id="tab-logistics" class="tab-content">
+                <div class="tab-header">
+                    <h2 data-i18n="tabs.logistics">SASH Логистика</h2>
+                    <p class="tab-desc" data-i18n="tabs.logisticsDesc">Трекинг грузов</p>
+                </div>
+                <div class="tab-body">
+                    <div class="placeholder-card">
+                        <span class="placeholder-icon">📦</span>
+                        <p data-i18n="placeholder.developing">Раздел в разработке</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- КРИПТА -->
+            <div id="tab-crypto" class="tab-content">
+                <div class="tab-header">
+                    <h2 data-i18n="tabs.crypto">SASH Крипта</h2>
+                    <p class="tab-desc" data-i18n="tabs.cryptoDesc">Обмен и кошелёк</p>
+                </div>
+                <div class="tab-body">
+                    <div class="placeholder-card">
+                        <span class="placeholder-icon">💎</span>
+                        <p data-i18n="placeholder.developing">Раздел в разработке</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ТУРИЗМ -->
+            <div id="tab-tourism" class="tab-content">
+                <div class="tab-header">
+                    <h2 data-i18n="tabs.tourism">SASH Туризм</h2>
+                    <p class="tab-desc" data-i18n="tabs.tourismDesc">Туры и путешествия</p>
+                </div>
+                <div class="tab-body">
+                    <div class="placeholder-card">
+                        <span class="placeholder-icon">️</span>
+                        <p data-i18n="placeholder.developing">Раздел в разработке</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- КОШЕЛЁК -->
+            <div id="tab-wallet" class="tab-content">
+                <div class="tab-header">
+                    <h2 data-i18n="tabs.wallet">SASH Кошелёк</h2>
+                    <p class="tab-desc" data-i18n="tabs.walletDesc">Баланс и транзакции</p>
+                </div>
+                <div class="tab-body">
+                    <div class="placeholder-card">
+                        <span class="placeholder-icon">💰</span>
+                        <p data-i18n="placeholder.developing">Раздел в разработке</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ПРОФИЛЬ -->
+            <div id="tab-profile" class="tab-content">
+                <div class="tab-header">
+                    <h2 data-i18n="tabs.profile">SASH Профиль</h2>
+                    <p class="tab-desc" data-i18n="tabs.profileDesc">Настройки и информация</p>
+                </div>
+                <div class="tab-body">
+                    <div class="placeholder-card">
+                        <span class="placeholder-icon">👤</span>
+                        <p data-i18n="placeholder.developing">Раздел в разработке</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ФУТЕР -->
+        <footer class="app-footer">
+            <div class="footer-logo">SN</div>
+            <div class="footer-text" data-i18n="footer.text">SASH NEXUS © 2026</div>
+            <div class="footer-subtext" data-i18n="footer.subtext">Все права защищены</div>
+        </footer>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
