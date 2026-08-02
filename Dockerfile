@@ -1,6 +1,6 @@
-FROM node:20-alpine
+FROM node:20-alpine3.19
 
-# КРИТИЧЕСКИ ВАЖНО: Обновляем репозитории и ставим совместимость с OpenSSL 1.1 для Prisma
+# Alpine 3.19 еще имеет openssl1.1-compat
 RUN apk update && apk add --no-cache openssl1.1-compat libc6-compat
 
 WORKDIR /app
@@ -10,7 +10,6 @@ RUN npm install
 
 COPY . .
 
-# Генерируем Prisma клиент (теперь он найдет нужные библиотеки)
 RUN npx prisma generate
 
 EXPOSE 3000
