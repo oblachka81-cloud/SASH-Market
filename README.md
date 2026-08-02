@@ -1,2 +1,2 @@
-# SASH-Market
+# SASH-Nexus
 Global trading ecosystem SASH. Telegram bot and Mini App.
