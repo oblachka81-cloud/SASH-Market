@@ -4,10 +4,8 @@
   "description": "SASH Nexus Ecosystem: Market, Logistics, Crypto, Tourism",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "node index.js",
-    "db:push": "prisma db push",
-    "db:generate": "prisma generate"
+    "start": "npx prisma db push && node index.js",
+    "dev": "node index.js"
   },
   "dependencies": {
     "express": "^4.18.2",
