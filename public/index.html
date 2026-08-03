@@ -125,18 +125,93 @@
             </div>
 
             <!-- ТУРИЗМ -->
-            <div id="tab-tourism" class="tab-content">
-                <div class="tab-header">
-                    <h2 data-i18n="tabs.tourism">SASH Туризм</h2>
-                    <p class="tab-desc" data-i18n="tabs.tourismDesc">Туры и путешествия</p>
+<div id="tab-tourism" class="tab-content">
+    <div class="tab-header">
+        <h2 data-i18n="tabs.tourism">SASH Туризм</h2>
+        <p class="tab-desc" data-i18n="tabs.tourismDesc">Путешествия по России</p>
+    </div>
+
+    <div class="tab-body tourism-body">
+        
+        <!-- Сетка сервисов -->
+        <div class="tourism-services">
+            <button class="service-btn active" data-service="flights">
+                <span class="service-icon">✈️</span>
+                <span class="service-label" data-i18n="tourism.flights">Авиа</span>
+            </button>
+            <button class="service-btn" data-service="hotels">
+                <span class="service-icon"></span>
+                <span class="service-label" data-i18n="tourism.hotels">Отели</span>
+            </button>
+            <button class="service-btn" data-service="trains">
+                <span class="service-icon"></span>
+                <span class="service-label" data-i18n="tourism.trains">Ж/Д</span>
+            </button>
+            <button class="service-btn" data-service="tours">
+                <span class="service-icon"></span>
+                <span class="service-label" data-i18n="tourism.tours">Туры</span>
+            </button>
+        </div>
+
+        <!-- Динамическая форма поиска -->
+        <div class="search-card">
+            <div id="search-fields">
+                <!-- Поля будут меняться через JS -->
+                <div class="input-row">
+                    <div class="input-group">
+                        <label data-i18n="tourism.from">Откуда</label>
+                        <input type="text" placeholder="Пекин (PEK)" value="Пекин (PEK)">
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="tourism.to">Куда</label>
+                        <input type="text" placeholder="Москва (MOW)" value="Москва (MOW)">
+                    </div>
                 </div>
-                <div class="tab-body">
-                    <div class="placeholder-card">
-                        <span class="placeholder-icon">️</span>
-                        <p data-i18n="placeholder.developing">Раздел в разработке</p>
+                <div class="input-row">
+                    <div class="input-group full-width">
+                        <label data-i18n="tourism.dates">Даты</label>
+                        <input type="text" placeholder="15 Окт - 22 Окт" value="15 Окт - 22 Окт">
                     </div>
                 </div>
             </div>
+            <button class="search-action-btn" data-i18n="tourism.search">Найти</button>
+        </div>
+
+        <!-- Популярные направления -->
+        <div class="section-title" data-i18n="tourism.popular">Популярные направления</div>
+        <div class="destinations-grid">
+            <div class="dest-card">
+                <div class="dest-bg" style="background: linear-gradient(135deg, #1e3a5f, #4a9eff);">🏰</div>
+                <div class="dest-info">
+                    <h4>Москва</h4>
+                    <p data-i18n="tourism.fromPrice">от $150</p>
+                </div>
+            </div>
+            <div class="dest-card">
+                <div class="dest-bg" style="background: linear-gradient(135deg, #2d5a8e, #6db3ff);">🌉</div>
+                <div class="dest-info">
+                    <h4>Санкт-Петербург</h4>
+                    <p data-i18n="tourism.fromPrice">от $180</p>
+                </div>
+            </div>
+            <div class="dest-card">
+                <div class="dest-bg" style="background: linear-gradient(135deg, #0d1f3c, #1e3a5f);">🌊</div>
+                <div class="dest-info">
+                    <h4>Байкал</h4>
+                    <p data-i18n="tourism.fromPrice">от $250</p>
+                </div>
+            </div>
+            <div class="dest-card">
+                <div class="dest-bg" style="background: linear-gradient(135deg, #4a9eff, #2d5a8e);">🕌</div>
+                <div class="dest-info">
+                    <h4>Казань</h4>
+                    <p data-i18n="tourism.fromPrice">от $120</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
             <!-- КОШЕЛЁК -->
             <div id="tab-wallet" class="tab-content">
