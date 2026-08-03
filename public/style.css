@@ -20,90 +20,23 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, #0a1628 0%, #1a2f4a 50%, #0d1f3c 100%);
+    z-index: 9999;
+    background: #0a1628;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
+    transition: opacity 0.8s ease;
 }
 
 .splash-screen.fade-out {
     opacity: 0;
-    visibility: hidden;
+    pointer-events: none;
 }
 
-.splash-logo-container {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    margin-bottom: 30px;
-    animation: logoAppear 1s ease forwards;
-}
-
-.splash-logo {
-    width: 120px;
-    height: 120px;
-    background: linear-gradient(135deg, #1e3a5f 0%, #2d5a8e 100%);
-    border: 3px solid #4a9eff;
-    border-radius: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 42px;
-    font-weight: bold;
-    color: #4a9eff;
-    box-shadow: 0 0 40px rgba(74, 158, 255, 0.5), inset 0 0 20px rgba(74, 158, 255, 0.2);
-    position: relative;
-    z-index: 2;
-}
-
-.splash-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 140px;
-    height: 140px;
-    background: radial-gradient(circle, rgba(74, 158, 255, 0.4) 0%, transparent 70%);
-    border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
-    z-index: 1;
-}
-
-.splash-title {
-    font-size: 32px;
-    font-weight: bold;
-    letter-spacing: 4px;
-    color: #ffffff;
-    text-shadow: 0 0 20px rgba(74, 158, 255, 0.8);
-    animation: slideUp 0.8s ease 0.3s both;
-}
-
-.splash-subtitle {
-    font-size: 16px;
-    color: #4a9eff;
-    letter-spacing: 2px;
-    margin-top: 8px;
-    animation: slideUp 0.8s ease 0.5s both;
-}
-
-.splash-loader {
-    width: 200px;
-    height: 3px;
-    background: rgba(74, 158, 255, 0.2);
-    border-radius: 2px;
-    margin-top: 40px;
-    overflow: hidden;
-    animation: slideUp 0.8s ease 0.7s both;
-}
-
-.loader-bar {
+#splashVideo {
+    width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, #4a9eff, #6db3ff);
-    border-radius: 2px;
-    animation: loading 5s ease forwards;
+    object-fit: cover;
 }
 
 /* ============ MAIN APP ============ */
@@ -387,25 +320,6 @@ body {
 }
 
 /* ============ ANIMATIONS ============ */
-@keyframes logoAppear {
-    0% { opacity: 0; transform: scale(0.5); }
-    100% { opacity: 1; transform: scale(1); }
-}
-
-@keyframes pulse {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.3; }
-}
-
-@keyframes slideUp {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes loading {
-    0% { width: 0%; }
-    100% { width: 100%; }
-}
 
 @keyframes fadeIn {
     0% { opacity: 0; transform: translateY(10px); }
