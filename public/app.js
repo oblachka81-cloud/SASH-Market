@@ -124,16 +124,38 @@ function initLangSwitcher() {
 
 // ============ SPLASH SCREEN ============
 const splash = document.getElementById('splash');
+const splashVideo = document.getElementById('splashVideo');
 const mainApp = document.getElementById('main-app');
 
-setTimeout(() => {
+// Запускаем видео
+splashVideo.addEventListener('loadeddata', () => {
+    splashVideo.play().catch(() => {
+        splashVideo.muted = true;
+        splashVideo.play();
+    });
+});
+
+// Видео закончилось — плавный переход
+splashVideo.addEventListener('ended', () => {
     splash.classList.add('fade-out');
     setTimeout(() => {
         splash.style.display = 'none';
         mainApp.classList.remove('hidden');
         mainApp.classList.add('visible');
     }, 800);
-}, 5000);
+});
+
+// Фоллбэк: если видео зависло — через 7 сек форсируем
+setTimeout(() => {
+    if (mainApp.classList.contains('hidden')) {
+        splash.classList.add('fade-out');
+        setTimeout(() => {
+            splash.style.display = 'none';
+            mainApp.classList.remove('hidden');
+            mainApp.classList.add('visible');
+        }, 800);
+    }
+}, 7000);
 
 // ============ ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК ============
 const tabButtons = document.querySelectorAll('.tab-btn');
