@@ -34,22 +34,35 @@ async function syncDatabase() {
 }
 
 // Команды бота
-bot.start((ctx) => {
-  // Добавляем кнопку Web App
-  ctx.reply(
-    'Добро пожаловать в *SASH Nexus*! 🌐\n\n' +
-    'Мы строим единую экосистему для:\n' +
-    '🇨🇳 Товаров из Китая\n' +
-    '📦 Логистики и трекинга\n' +
-    '💎 Крипто-обмена\n' +
-    '✈️ Туризма\n\n' +
-    'Нажми кнопку ниже, чтобы открыть приложение!',
-    {
-      reply_markup: {
-        keyboard: [[{ text: "🚀 Открыть SASH Nexus", web_app: { url: process.env.WEB_APP_URL } }]]
+bot.start(async (ctx) => {
+  const keyboard = {
+    inline_keyboard: [
+      [{ text: '🚀 Открыть SASH Nexus', web_app: { url: process.env.WEB_APP_URL } }]
+    ]
+  };
+
+  try {
+    await ctx.replyWithPhoto(
+      { source: path.join(__dirname, 'public', 'assets', 'enter-button.webp') },
+      {
+        caption:
+          '🌐 *SASH Nexus* — единая экосистема:\n\n' +
+          '🇨🇳 Товары из Китая\n' +
+          '📦 Логистики и трекинга\n' +
+          '💎 Крипто-обмена\n' +
+          '✈️ Туризма\n\n' +
+          'Нажми кнопку ниже, чтобы открыть приложение!',
+        parse_mode: 'Markdown',
+        reply_markup: keyboard
       }
-    }
-  );
+    );
+  } catch (e) {
+    // если фотка не найдётся — шлём текст, бот не падает
+    await ctx.reply('Добро пожаловать в *SASH Nexus*! 🌐', {
+      parse_mode: 'Markdown',
+      reply_markup: keyboard
+    });
+  }
 });
 
 bot.command('status', async (ctx) => {
