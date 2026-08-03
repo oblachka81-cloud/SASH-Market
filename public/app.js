@@ -158,6 +158,103 @@ tabButtons.forEach(btn => {
         }
     });
 });
+// ============ ЛОГИКА ТУРИЗМА ============
+const serviceBtns = document.querySelectorAll('.service-btn');
+const searchFields = document.getElementById('search-fields');
+
+// Шаблоны форм для разных сервисов
+const formTemplates = {
+    flights: `
+        <div class="input-row">
+            <div class="input-group">
+                <label data-i18n="tourism.from">Откуда</label>
+                <input type="text" placeholder="Пекин (PEK)" value="Пекин (PEK)">
+            </div>
+            <div class="input-group">
+                <label data-i18n="tourism.to">Куда</label>
+                <input type="text" placeholder="Москва (MOW)" value="Москва (MOW)">
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input-group full-width">
+                <label data-i18n="tourism.dates">Даты</label>
+                <input type="text" placeholder="15 Окт - 22 Окт" value="15 Окт - 22 Окт">
+            </div>
+        </div>
+    `,
+    hotels: `
+        <div class="input-row">
+            <div class="input-group full-width">
+                <label data-i18n="tourism.destination">Направление</label>
+                <input type="text" placeholder="Москва, Россия" value="Москва, Россия">
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input-group">
+                <label data-i18n="tourism.checkin">Заезд</label>
+                <input type="text" placeholder="15 Окт" value="15 Окт">
+            </div>
+            <div class="input-group">
+                <label data-i18n="tourism.checkout">Выезд</label>
+                <input type="text" placeholder="20 Окт" value="20 Окт">
+            </div>
+        </div>
+    `,
+    trains: `
+        <div class="input-row">
+            <div class="input-group">
+                <label data-i18n="tourism.from">Откуда</label>
+                <input type="text" placeholder="Москва" value="Москва">
+            </div>
+            <div class="input-group">
+                <label data-i18n="tourism.to">Куда</label>
+                <input type="text" placeholder="Санкт-Петербург" value="Санкт-Петербург">
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input-group full-width">
+                <label data-i18n="tourism.date">Дата</label>
+                <input type="text" placeholder="15 Окт" value="15 Окт">
+            </div>
+        </div>
+    `,
+    tours: `
+        <div class="input-row">
+            <div class="input-group full-width">
+                <label data-i18n="tourism.destination">Направление</label>
+                <input type="text" placeholder="Байкал, Россия" value="Байкал, Россия">
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input-group full-width">
+                <label data-i18n="tourism.dates">Даты тура</label>
+                <input type="text" placeholder="Любые даты" value="Любые даты">
+            </div>
+        </div>
+    `
+};
+
+serviceBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Убираем активный класс у всех кнопок сервисов
+        serviceBtns.forEach(b => b.classList.remove('active'));
+        // Добавляем нажатой
+        btn.classList.add('active');
+        
+        // Меняем форму
+        const service = btn.getAttribute('data-service');
+        if (formTemplates[service]) {
+            searchFields.innerHTML = formTemplates[service];
+            // Переприменяем переводы для новых полей
+            applyTranslations(currentLang); 
+        }
+
+        // Виброотклик
+        if (tg.HapticFeedback) {
+            tg.HapticFeedback.selectionChanged();
+        }
+    });
+});
 
 // ============ ИНИЦИАЛИЗАЦИЯ ============
 async function init() {
