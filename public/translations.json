@@ -15,11 +15,27 @@
       "crypto": "Крипта",
       "cryptoDesc": "Обмен и кошелёк",
       "tourism": "Туризм",
-      "tourismDesc": "Туры и путешествия",
+      "tourismDesc": "Путешествия по России",
       "wallet": "Кошелёк",
       "walletDesc": "Баланс и транзакции",
       "profile": "Профиль",
       "profileDesc": "Настройки и информация"
+    },
+    "tourism": {
+      "flights": "Авиа",
+      "hotels": "Отели",
+      "trains": "Ж/Д",
+      "tours": "Туры",
+      "from": "Откуда",
+      "to": "Куда",
+      "dates": "Даты",
+      "date": "Дата",
+      "destination": "Направление",
+      "checkin": "Заезд",
+      "checkout": "Выезд",
+      "search": "Найти",
+      "popular": "Популярные направления",
+      "fromPrice": "от"
     },
     "placeholder": {
       "developing": "Раздел в разработке"
@@ -51,6 +67,22 @@
       "profile": "Profile",
       "profileDesc": "Settings & info"
     },
+    "tourism": {
+      "flights": "Flights",
+      "hotels": "Hotels",
+      "trains": "Trains",
+      "tours": "Tours",
+      "from": "From",
+      "to": "To",
+      "dates": "Dates",
+      "date": "Date",
+      "destination": "Destination",
+      "checkin": "Check-in",
+      "checkout": "Check-out",
+      "search": "Search",
+      "popular": "Popular destinations",
+      "fromPrice": "from"
+    },
     "placeholder": {
       "developing": "Section in development"
     },
@@ -80,6 +112,22 @@
       "walletDesc": "余额与交易",
       "profile": "个人资料",
       "profileDesc": "设置与信息"
+    },
+    "tourism": {
+      "flights": "机票",
+      "hotels": "酒店",
+      "trains": "火车",
+      "tours": "旅游团",
+      "from": "出发地",
+      "to": "目的地",
+      "dates": "日期",
+      "date": "日期",
+      "destination": "目的地",
+      "checkin": "入住",
+      "checkout": "退房",
+      "search": "搜索",
+      "popular": "热门目的地",
+      "fromPrice": "起价"
     },
     "placeholder": {
       "developing": "部分正在开发中"
