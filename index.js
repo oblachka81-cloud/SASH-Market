@@ -37,31 +37,18 @@ async function syncDatabase() {
 bot.start(async (ctx) => {
   const keyboard = {
     inline_keyboard: [
-      [{ text: '🚀 Открыть SASH Nexus', web_app: { url: process.env.WEB_APP_URL } }]
+      [{ text: 'SASH Nexus 🌐', web_app: { url: process.env.WEB_APP_URL } }]
     ]
   };
 
   try {
     await ctx.replyWithPhoto(
       { source: path.join(__dirname, 'public', 'assets', 'enter-button.webp') },
-      {
-        caption:
-          '🌐 *SASH Nexus* — единая экосистема:\n\n' +
-          '🇨🇳 Товары из Китая\n' +
-          '📦 Логистики и трекинга\n' +
-          '💎 Крипто-обмена\n' +
-          '✈️ Туризма\n\n' +
-          'Нажми кнопку ниже, чтобы открыть приложение!',
-        parse_mode: 'Markdown',
-        reply_markup: keyboard
-      }
+      { reply_markup: keyboard }
     );
   } catch (e) {
-    // если фотка не найдётся — шлём текст, бот не падает
-    await ctx.reply('Добро пожаловать в *SASH Nexus*! 🌐', {
-      parse_mode: 'Markdown',
-      reply_markup: keyboard
-    });
+    // если фотка не найдётся — шлём просто кнопку, бот не падает
+    await ctx.reply('SASH Nexus 🌐', { reply_markup: keyboard });
   }
 });
 
