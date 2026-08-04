@@ -82,26 +82,11 @@ body {
     gap: 5px;
 }
 
-.logo-icon {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #1e3a5f, #2d5a8e);
-    border: 2px solid #4a9eff;
+.logo-icon-img {
+    width: 45px;
+    height: 45px;
     border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: bold;
-    color: #4a9eff;
-    box-shadow: 0 0 15px rgba(74, 158, 255, 0.4);
-}
-
-.logo-text {
-    font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    color: #ffffff;
+    object-fit: contain;
 }
 
 /* LANGUAGE SWITCHER */
@@ -290,20 +275,13 @@ body {
     margin-top: auto;
 }
 
-.footer-logo {
+.footer-logo-img {
     width: 35px;
     height: 35px;
-    background: linear-gradient(135deg, #1e3a5f, #2d5a8e);
-    border: 2px solid #4a9eff;
     border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: bold;
-    color: #4a9eff;
+    object-fit: contain;
+    display: block;
     margin: 0 auto 10px;
-    box-shadow: 0 0 10px rgba(74, 158, 255, 0.3);
 }
 
 .footer-text {
