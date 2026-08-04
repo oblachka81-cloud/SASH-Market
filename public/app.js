@@ -127,26 +127,8 @@ const splash = document.getElementById('splash');
 const splashVideo = document.getElementById('splashVideo');
 const mainApp = document.getElementById('main-app');
 
-// Запускаем видео
-splashVideo.addEventListener('loadeddata', () => {
-    splashVideo.play().catch(() => {
-        splashVideo.muted = true;
-        splashVideo.play();
-    });
-});
-
-// Видео закончилось — плавный переход
-splashVideo.addEventListener('ended', () => {
-    splash.classList.add('fade-out');
-    setTimeout(() => {
-        splash.style.display = 'none';
-        mainApp.classList.remove('hidden');
-        mainApp.classList.add('visible');
-    }, 800);
-});
-
-// Фоллбэк: если видео зависло — через 7 сек форсируем
-setTimeout(() => {
+// Таймер на 6.8 сек
+let splashTimer = setTimeout(() => {
     if (mainApp.classList.contains('hidden')) {
         splash.classList.add('fade-out');
         setTimeout(() => {
@@ -155,7 +137,27 @@ setTimeout(() => {
             mainApp.classList.add('visible');
         }, 800);
     }
-}, 7000);
+}, 6800);
+
+// Пытаемся запустить
+const playPromise = splashVideo.play();
+
+if (playPromise !== undefined) {
+    playPromise.then(() => {
+        // Видео играет
+        splashVideo.addEventListener('ended', () => {
+            clearTimeout(splashTimer);
+            splash.classList.add('fade-out');
+            setTimeout(() => {
+                splash.style.display = 'none';
+                mainApp.classList.remove('hidden');
+                mainApp.classList.add('visible');
+            }, 800);
+        });
+    }).catch(() => {
+        // Заблочили — первый кадр уже висит, таймер сделает переход
+    });
+}
 
 // ============ ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК ============
 const tabButtons = document.querySelectorAll('.tab-btn');
