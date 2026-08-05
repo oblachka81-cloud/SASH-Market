@@ -468,3 +468,56 @@ body {
     color: #4a9eff;
     font-weight: 600;
 }
+/* ============ ВИДЕО ФОН ============ */
+.video-bg-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.video-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.8s ease;
+}
+
+.video-bg.visible {
+    opacity: 1;
+}
+
+/* Затемнение, чтобы текст читался идеально */
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg,
+        rgba(10, 22, 40, 0.82) 0%,
+        rgba(13, 31, 60, 0.72) 50%,
+        rgba(10, 22, 40, 0.88) 100%);
+}
+
+/* Контент поверх видео */
+.app-header,
+.tab-switcher,
+.tabs-container,
+.app-footer {
+    position: relative;
+    z-index: 1;
+}
+
+/* Glassmorphism для header/footer — видео красиво просвечивает */
+.app-header,
+.app-footer {
+    background: rgba(13, 31, 60, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
