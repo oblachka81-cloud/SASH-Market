@@ -126,36 +126,39 @@ function initLangSwitcher() {
 const splash = document.getElementById('splash');
 const splashVideo = document.getElementById('splashVideo');
 const mainApp = document.getElementById('main-app');
+const videoBg = document.getElementById('videoBg');
 
-// Таймер на 6.8 сек
-let splashTimer = setTimeout(() => {
-    if (mainApp.classList.contains('hidden')) {
-        splash.classList.add('fade-out');
-        setTimeout(() => {
-            splash.style.display = 'none';
-            mainApp.classList.remove('hidden');
-            mainApp.classList.add('visible');
-        }, 800);
-    }
-}, 6800);
+// Видео фон начинает грузиться и играть СРАЗУ,
+// пока splash крутится — пользователь этого не видит
+if (videoBg) {
+    videoBg.play().catch(() => {});
+}
 
-// Пытаемся запустить
+// Единая функция перехода: splash уходит, видео фон плавно проявляется
+function revealMainApp() {
+    if (!mainApp.classList.contains('hidden')) return;
+    splash.classList.add('fade-out');
+    if (videoBg) videoBg.classList.add('visible');
+    setTimeout(() => {
+        splash.style.display = 'none';
+        mainApp.classList.remove('hidden');
+        mainApp.classList.add('visible');
+    }, 800);
+}
+
+// Страховочный таймер 6.8 сек
+let splashTimer = setTimeout(revealMainApp, 6800);
+
+// Splash видео
 const playPromise = splashVideo.play();
-
 if (playPromise !== undefined) {
     playPromise.then(() => {
-        // Видео играет
         splashVideo.addEventListener('ended', () => {
             clearTimeout(splashTimer);
-            splash.classList.add('fade-out');
-            setTimeout(() => {
-                splash.style.display = 'none';
-                mainApp.classList.remove('hidden');
-                mainApp.classList.add('visible');
-            }, 800);
+            revealMainApp();
         });
     }).catch(() => {
-        // Заблочили — первый кадр уже висит, таймер сделает переход
+        // Видео заблочено — таймер сам сделает переход
     });
 }
 
