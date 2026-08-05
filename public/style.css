@@ -494,15 +494,7 @@ body {
 
 /* Затемнение, чтобы текст читался идеально */
 .video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg,
-        rgba(10, 22, 40, 0.7) 0%,
-        rgba(26, 47, 74, 0.6) 50%,
-        rgba(13, 31, 60, 0.7) 100%);
+    display: none;
 }
 
 /* Контент поверх видео */
