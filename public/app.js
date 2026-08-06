@@ -80,8 +80,14 @@ function applyTranslations(lang) {
     });
     
     // Обновляем отображение текущего языка
-    const langNames = { ru: '🇷🇺 RU', en: '🇬🇧 EN', zh: '🇨🇳 CN' };
-    document.getElementById('langCurrent').textContent = langNames[lang] || '🇷🇺 RU';
+    const langNames = {ru: 'RU', en: 'EN', zh: 'CN'};
+    const langFlags = {
+    ru: 'assets/flag-ru.webp',
+    en: 'assets/flag-en.webp',
+    zh: 'assets/flag-zh.webp'
+   };
+    document.getElementById('langName').textContent = langNames[lang] || 'RU';
+    document.getElementById('langFlag').src = langFlags[lang] || 'assets/flag-ru.webp';
     
     // Подсвечиваем активный язык в dropdown
     document.querySelectorAll('.lang-option').forEach(opt => {
