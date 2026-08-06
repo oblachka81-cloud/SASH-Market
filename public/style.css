@@ -687,3 +687,9 @@ body {
     color: #ffd700;
     font-weight: 700;
 }
+.tab-icon-img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 6px rgba(255, 200, 60, 0.5));
+}
