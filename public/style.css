@@ -251,23 +251,26 @@ body {
 }
 
 .placeholder-card {
-    background: rgba(30, 58, 95, 0.4);
-    border: 1px solid rgba(74, 158, 255, 0.3);
-    border-radius: 20px;
+    background: url('assets/panel-bg.webp') center / 100% 100% no-repeat;
+    border: none;
+    border-radius: 16px;
     padding: 40px 20px;
     text-align: center;
-    backdrop-filter: blur(10px);
 }
 
 .placeholder-icon {
     font-size: 60px;
     display: block;
     margin-bottom: 15px;
+    filter: drop-shadow(0 0 10px rgba(255, 200, 60, 0.4));
 }
 
 .placeholder-card p {
-    color: #8ab4f8;
+    color: #ffe9b8;
     font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8), 0 0 12px rgba(255, 200, 60, 0.35);
 }
 
 /* FOOTER */
