@@ -1,9 +1,26 @@
 // ═══════════════════════════════════════════════════════════════════════════
-// NEURON Vesting — LockupWallet v4.1.0
+// NEURON Vesting — LockupWallet v5.0.1
 // ───────────────────────────────────────────────────────────────────────────
 // One LockupWallet per lock. Holds jettons after the factory forwards them
 // into the wallet's deterministic jetton wallet, enforces the unlock
 // schedule, and releases jettons to the beneficiary on claim.
+//
+// Changelog v5.0.1:
+//   - FIXED (mainnet K1, exit 36235): JettonExcesses now accepts the success
+//     callback from EITHER jetton wallet of the TEP-74 transfer chain — our
+//     own jetton wallet OR the beneficiary's jetton wallet. Per TEP-74 the
+//     receiving-side wallet also returns excesses to response_destination
+//     (it is copied into internal_transfer), and COGNIQ's sending-side wallet
+//     sends none. The old `sender() == jetton_wallet` guard reverted the only
+//     excess that ever arrived, leaving pending_claim stuck and ~0.25 TON of
+//     dust per completed lock.
+//   - ADDED: `beneficiary_wallet` state field, cached from the TEP-89
+//     TakeWalletAddress response during claim flow 2.
+//
+// Changelog v5.0.0:
+//   - ADDED: Automatic sweep of all remaining TON balance to beneficiary after
+//     successful claim completion (mode: 128 + 32 + 2).
+//   - ADDED: Contract self-destruct after final claim to reclaim storage deposit.
 //
 // Jetton wallet discovery:
 //   The wallet does not compute its jetton wallet address via StateInit.
@@ -33,6 +50,8 @@
 //       `amount == total_amount` from the discovered jetton wallet
 //   I4. `jetton_wallet` is set at most once (discovery is idempotent)
 //   I5. Claims are atomic: at most one pending claim per wallet
+//   I6. After successful claim completion, all remaining TON balance is
+//       returned to beneficiary and contract self-destructs (no dust left)
 //
 // ═══════════════════════════════════════════════════════════════════════════
 
@@ -94,7 +113,7 @@ const CLAIM_FORWARD: Int = ton("0.01");
 /// enforce `forward_payload.bits() >= 1` and revert with exit code 708 on
 /// an empty slice. A single zero bit is the minimal valid payload.
 
-// ─── Contract ──────────────────────────────────────────────────────────────
+// ─── Contract ─────────────────────────────────────────────────────────────
 
 contract LockupWallet {
     // ── Immutable identity ─────────────────────────────────────────────
@@ -109,9 +128,14 @@ contract LockupWallet {
     claimed: Int as coins;
     unlock_at: Int as uint64;
 
-    // ── Discovery & funding state ──────────────────────────────────────
+    // ── Discovery & funding state ─────────────────────────────────────
     /// This wallet's jetton wallet address, resolved via TEP-89.
     jetton_wallet: Address?;
+    /// The beneficiary's jetton wallet address, resolved via TEP-89 during
+    /// claim flow 2. v5.0.1: excesses from this address also settle claims,
+    /// because TEP-74 copies response_destination into internal_transfer and
+    /// the receiving-side wallet returns excesses to it.
+    beneficiary_wallet: Address?;
     /// Notification sender observed before discovery completed.
     /// Used to mark `funded` if the discovered wallet matches.
     fund_sender: Address?;
@@ -141,6 +165,7 @@ contract LockupWallet {
         self.claimed = 0;
         self.unlock_at = unlock_at;
         self.jetton_wallet = null;
+        self.beneficiary_wallet = null;
         self.fund_sender = null;
         self.funded = false;
         self.pending_claim = false;
@@ -150,7 +175,7 @@ contract LockupWallet {
 
     // ═══════════════════════════════════════════════════════════════════
     // Discovery
-    // ═══════════════════════════════════════════════════════════════════
+    // ══════════════════════════════════════════════════════════════════
 
     /// Factory-only entry point: kick off TEP-89 discovery.
     receive(msg: StartDiscovery) {
@@ -185,6 +210,11 @@ contract LockupWallet {
             && msg.query_id == self.pending_query_id) {
 
             require(self.jetton_wallet != null, "no wallet");
+
+            // v5.0.1: cache the beneficiary's jetton wallet so the success
+            // excesses it returns (TEP-74 copies response_destination into
+            // internal_transfer) are accepted as settlement confirmation.
+            self.beneficiary_wallet = msg.wallet_address;
 
             self.claimed = self.claimed + self.pending_amount;
 
@@ -234,7 +264,7 @@ contract LockupWallet {
 
     // ═══════════════════════════════════════════════════════════════════
     // Funding
-    // ═══════════════════════════════════════════════════════════════════
+    // ══════════════════════════════════════════════════════════════════
 
     /// Accept deposits exclusively from the discovered jetton wallet (I3).
     /// Notifications arriving before discovery are buffered in `fund_sender`
@@ -296,14 +326,49 @@ contract LockupWallet {
 
     /// Jetton wallet's success callback. Resets `pending_claim` so future
     /// claims can proceed.
+    ///
+    /// v5.0.1 FIX (mainnet K1, exit 36235): TEP-74 copies response_destination
+    /// into internal_transfer, so the RECEIVING-side jetton wallet (the
+    /// beneficiary's) also returns excesses to this contract — and COGNIQ's
+    /// sending-side wallet returns none. Accepting only `jetton_wallet` as
+    /// sender reverted the only excess that ever arrived. We now accept
+    /// excesses from either real wallet of the transfer chain. Sender cannot
+    /// be spoofed (the chain sets it), so no new attack surface: a foreign
+    /// sender still reverts on "not our wallet".
+    ///
+    /// AUDIT v5.0.0:
+    /// After successful claim completion (when claimed == total_amount),
+    /// this handler returns ALL remaining TON balance to the beneficiary
+    /// and self-destructs the contract (mode: 128 + 32 + 2).
+    ///
+    /// Mode breakdown:
+    ///   - 128: Send all remaining balance (not just value field)
+    ///   - 32: Ignore errors (if beneficiary address is invalid, just skip)
+    ///   - 2: Destroy this contract after sending (reclaim storage deposit)
     receive(msg: JettonExcesses) {
         let jw: Address? = self.jetton_wallet;
-        require(jw != null && sender() == jw!!, "not our wallet"); 
-        
+        let bw: Address? = self.beneficiary_wallet;
+        let s: Address = sender();
+        require(
+            jw != null && (s == jw!! || (bw != null && s == bw!!)),
+            "not our wallet"
+        );
+
         if (self.pending_claim && msg.query_id == self.pending_query_id) {
             self.pending_claim = false;
             self.pending_amount = 0;
             self.pending_query_id = 0;
+
+            // AUDIT v5: If this was the final claim (all funds claimed),
+            // sweep all remaining TON to beneficiary and self-destruct.
+            if (self.claimed >= self.total_amount) {
+                send(SendParameters{
+                    to: self.beneficiary,
+                    value: 0,  // value=0 with mode:128 sends ALL balance
+                    mode: 128 + 32 + 2,
+                    body: emptyCell()
+                });
+            }
         }
     }
 
@@ -331,6 +396,7 @@ contract LockupWallet {
     get fun lockId(): Int { return self.lock_id; }
     get fun isFunded(): Bool { return self.funded; }
     get fun jettonWallet(): Address? { return self.jetton_wallet; }
+    get fun beneficiaryWallet(): Address? { return self.beneficiary_wallet; }
     get fun unlockAt(): Int { return self.unlock_at; }
     get fun beneficiaryGet(): Address { return self.beneficiary; }
     get fun claimedAmount(): Int { return self.claimed; }
